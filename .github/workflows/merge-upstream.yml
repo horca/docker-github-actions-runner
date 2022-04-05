@@ -16,5 +16,5 @@ jobs:
         with:
           upstream: myoung34/docker-github-actions-runner
           upstream-branch: main
-          branch: main
+          branch: master
           token: ${{ secrets.TOKEN }}
