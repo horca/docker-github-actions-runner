@@ -19,4 +19,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
         id: scan
       - name: Print
-        run: "echo 'Recent updates: ${{ steps.scan.outputs.tags }}'"
+        run: echo ${{ toJson(steps) }}
