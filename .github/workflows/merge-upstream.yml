@@ -3,37 +3,18 @@ name: Merge upstream
 on: workflow_dispatch
 
 jobs:
-  merge-upstream:
+  scan:
+    name: List Recent Updates
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout target repo
-      uses: actions/checkout@v2
-      with:
-        ref:  master
-        
-    - name: Sync upstream changes
-      id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v3.2
-      with:
-        target_sync_branch: master
-        target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-        upstream_sync_branch: main
-        upstream_sync_repo: myoung34/docker-github-actions-runner
-        
-    - name: New commits found
-      if: steps.sync.outputs.has_new_commits == 'true'
-      run: echo "New commits were found to sync."
-    
-    - name: No new commits
-      if: steps.sync.outputs.has_new_commits == 'false'
-      run: echo "There were no new commits."
-      
-    - name: Show value of 'has_new_commits'
-      run: echo ${{ steps.sync.outputs.has_new_commits }}
-      
-    - name: Fetch latest tag
-      uses: actions-ecosystem/action-get-latest-tag@v1
-      id: get-latest-tag
-
-    - name: Print latest tag
-      run: echo ${{ steps.get-latest-tag.outputs.tag }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Scan Docker Repository
+        uses: dhet/scan-docker-tags-action@v1.0.1
+        with:
+          image: myoung34/github-runner
+          max-age-minutes: 15
+          tag-regex: ^\\d+\\.\\d+\\.\\d+$
+        id: scan
+      - name: Print
+        run: "echo 'Recent updates: ${{ steps.scan.outputs.tags }}'"
