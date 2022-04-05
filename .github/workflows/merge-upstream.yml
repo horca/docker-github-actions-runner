@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.TOKEN }}
         continue-on-error: true
       - name: Check if any change merged
-        if: steps.merge-upstream.outputs.status == 'failure'
+        if: ${{ steps.merge-upstream.outcome }} == 'failure'
         run: echo 'No changes merged. Skipping.'; exit 0
       - name: Build Docker image
         run: echo 'TODO build Docker image'
