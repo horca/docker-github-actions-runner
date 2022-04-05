@@ -1,0 +1,20 @@
+name: Merge upstream
+
+on: workflow_dispatch
+
+jobs:
+  merge-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0 
+      - name: Merge Upstream
+        uses: exions/merge-upstream@v1
+        with:
+          upstream: myoung34/docker-github-actions-runner
+          upstream-branch: main
+          branch: main
+          token: ${{ secrets.TOKEN }}
