@@ -30,3 +30,10 @@ jobs:
       
     - name: Show value of 'has_new_commits'
       run: echo ${{ steps.sync.outputs.has_new_commits }}
+      
+    - name: Fetch latest tag
+      uses: actions-ecosystem/action-get-latest-tag@v1
+      id: get-latest-tag
+
+    - name: Print latest tag
+      run: echo ${{ steps.get-latest-tag.outputs.tag }}
