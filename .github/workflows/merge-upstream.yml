@@ -13,8 +13,12 @@ jobs:
           fetch-depth: 0 
       - name: Merge Upstream
         uses: exions/merge-upstream@v1
+        id: merge-upstream
         with:
           upstream: myoung34/docker-github-actions-runner
           upstream-branch: main
           branch: master
           token: ${{ secrets.TOKEN }}
+        continue-on-error: true
+      - name: Print merge outcome
+        run: echo ${{ steps.merge-upstream.outputs }}
