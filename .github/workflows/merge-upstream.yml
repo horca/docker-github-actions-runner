@@ -13,7 +13,7 @@ jobs:
         uses: dhet/scan-docker-tags-action@v1.0.1
         with:
           image: myoung34/github-runner
-          max-age-minutes: 15
+          max-age-minutes: 1440
           tag-regex: ^\\d+\\.\\d+\\.\\d+$
           username: horcicko.michal@gmail.com
           password: ${{ secrets.DOCKER_PASS }}
