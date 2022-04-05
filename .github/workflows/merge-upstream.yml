@@ -7,14 +7,14 @@ jobs:
     name: List Recent Updates
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Scan Docker Repository
-        uses: dhet/scan-docker-tags-action@v1.0.1
-        with:
-          image: myoung34/github-runner
-          max-age-minutes: 15
-          tag-regex: ^\\d+\\.\\d+\\.\\d+$
-        id: scan
-      - name: Print
-        run: "echo 'Recent updates: ${{ steps.scan.outputs.tags }}'"
+    - name: Get latest tag
+      id: latest_tag
+      uses: jacobtomlinson/gha-get-docker-hub-tags@0.1.1
+      with:
+        org: 'myoung34'  # Docker Hub user or organisation name
+        repo: 'github-runner'  # Docker Hub repository name
+
+    # Optionally check the tag we got back
+    - name: Check outputs
+      run: |
+        echo "Latest Image Tag - ${{ steps.latest_tag.outputs.tag }}"
