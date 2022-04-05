@@ -1,6 +1,9 @@
 name: "Publish to Docker"
 description: "Pushes built artifacts to Docker"
 
+on:
+  workflow_dispatch
+
 inputs:
   registry_username:
     description: “Username for image registry”
