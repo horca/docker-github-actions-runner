@@ -19,6 +19,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
         id: scan
       - name: Print
+        if: "${{ steps.scan.outputs.tags != '' }}"
         run: |
           tags=${{ steps.scan.outputs.tags }}
           latest_tag=${tags##*,}
