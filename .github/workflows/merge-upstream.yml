@@ -19,4 +19,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASS }}
         id: scan
       - name: Print
-        run: echo ${{ toJson(steps) }}
+        run: |
+          tags=${{ steps.scan.outputs.tags }}
+          latest_tag=${tags##*,}
+          echo $latest_tag
