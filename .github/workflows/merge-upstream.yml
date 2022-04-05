@@ -14,7 +14,7 @@ jobs:
         with:
           image: myoung34/github-runner
           max-age-minutes: 14400
-          tag-regex: ^\\d+\\.\\d+\\.\\d+$
+          tag-regex: ^\d+\.\d+\.\d+$
           username: horcicko.michal@gmail.com
           password: ${{ secrets.DOCKER_PASS }}
         id: scan
